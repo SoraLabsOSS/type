@@ -56,6 +56,28 @@ export function PickerRoot({ shadowHost }: { shadowHost: HTMLElement }) {
   // constrain dragging to "stay on screen").
   const viewportRef = useRef<HTMLDivElement>(null);
 
+  // z-index alone can't win against page overlays/sidebars that also use
+  // huge z-indexes and come later in the DOM — the top layer (Popover API)
+  // paints above all of them unconditionally.
+  useEffect(() => {
+    const element = viewportRef.current;
+    if (!element || typeof element.showPopover !== "function") {
+      return;
+    }
+    try {
+      element.showPopover();
+    } catch {
+      // Already open or not connected — nothing to recover.
+    }
+    return () => {
+      try {
+        element.hidePopover();
+      } catch {
+        // Already hidden/removed.
+      }
+    };
+  }, []);
+
   useEffect(() => {
     function detect(element: Element): FontDetectionResult {
       const cached = cacheRef.current.get(element);
@@ -155,7 +177,11 @@ export function PickerRoot({ shadowHost }: { shadowHost: HTMLElement }) {
   }, [shadowHost]);
 
   return (
-    <div className="pointer-events-none fixed inset-0" ref={viewportRef}>
+    <div
+      className="pointer-events-none fixed inset-0 m-0 h-full w-full overflow-visible border-0 bg-transparent p-0"
+      popover="manual"
+      ref={viewportRef}
+    >
       {hover && <Tooltip result={hover.result} x={hover.x} y={hover.y} />}
       {pins.map((pin) => (
         <Panel

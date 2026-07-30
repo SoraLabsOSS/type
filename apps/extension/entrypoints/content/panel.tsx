@@ -82,6 +82,37 @@ function FontFileSection({ family }: { family: string }) {
   );
 }
 
+function normalizeFamilyName(name: string): string {
+  return name
+    .trim()
+    .replace(/^['"]|['"]$/g, "")
+    .toLowerCase();
+}
+
+function FontStack({ family, stack }: { family: string; stack: string[] }) {
+  const active = normalizeFamilyName(family);
+  const entries = [...new Set(stack)];
+
+  return (
+    <p className="whitespace-normal break-words text-white/50">
+      {entries.map((entry, index) => (
+        <span key={entry}>
+          <span
+            className={
+              normalizeFamilyName(entry) === active
+                ? "font-semibold text-white"
+                : undefined
+            }
+          >
+            {entry}
+          </span>
+          {index < entries.length - 1 ? ", " : ""}
+        </span>
+      ))}
+    </p>
+  );
+}
+
 const OFFSET_PX = 12;
 // Content is a bounded set of fields (not user-length-variable), so a
 // static estimate is fine — no need to measure after mount.
@@ -152,7 +183,7 @@ export function Panel({
           {result.color}
         </dd>
       </dl>
-      <p className="truncate text-white/50">{result.stack.join(", ")}</p>
+      <FontStack family={result.family} stack={result.stack} />
       <FontFileSection family={result.family} />
     </motion.div>
   );

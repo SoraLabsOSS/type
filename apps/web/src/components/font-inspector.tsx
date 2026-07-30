@@ -50,6 +50,7 @@ import GlyphGrid, {
   MAX_GLYPHS,
 } from "@/components/glyph-grid";
 import { useLatestAsync } from "@/hooks/use-latest-async";
+import { fetchFontViaExtension } from "@/lib/extension-bridge";
 
 const FILE_EXTENSION = /\.[^./]+$/;
 const INSPECTOR_FONT_SLOT = "inspector";
@@ -128,6 +129,21 @@ function parseInspectUrl(raw: string | null): URL | null {
 function fileNameFromUrl(url: URL): string {
   const last = url.pathname.split("/").filter(Boolean).at(-1);
   return last && last.length > 0 ? last : "font";
+}
+
+/** Direct fetch first; when the host sends no Access-Control-Allow-Origin,
+ * fall back to the Sora Type extension (if installed), whose background
+ * fetch isn't subject to this page's CORS. */
+async function fetchInspectFontBuffer(url: URL): Promise<ArrayBuffer> {
+  try {
+    const response = await fetch(url, { mode: "cors" });
+    if (!response.ok) {
+      throw new Error(`Could not fetch font (${response.status})`);
+    }
+    return await response.arrayBuffer();
+  } catch {
+    return await fetchFontViaExtension(url.href);
+  }
 }
 
 function RawTablesViewContent({ font }: { font: FontkitFont | null }) {
@@ -280,11 +296,7 @@ export default function FontInspector() {
         setIsPlaceholder(false);
         setError(null);
         try {
-          const response = await fetch(url, { mode: "cors" });
-          if (!response.ok) {
-            throw new Error(`Could not fetch font (${response.status})`);
-          }
-          const buffer = await response.arrayBuffer();
+          const buffer = await fetchInspectFontBuffer(url);
           if (!isCurrent()) {
             return;
           }

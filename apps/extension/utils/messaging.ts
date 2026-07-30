@@ -3,6 +3,13 @@ import type { LoadFontSummaryResult } from "./load-font-summary";
 import type { PageFontSummary } from "./scan-page-fonts";
 
 interface ProtocolMap {
+  /** Background-side fetch of a binary file (base64-encoded response) —
+   * bypasses CORS via host_permissions when the content script's own
+   * fetch is blocked. */
+  fetchRemoteBinary(data: { url: string }): string;
+  /** Background-side fetch of a text resource (e.g. a cross-origin
+   * stylesheet the content script can't read). */
+  fetchRemoteText(data: { url: string }): string;
   /** Known frameIds for a tab, as reported via `registerFrame`. */
   getKnownFrames(data: { tabId: number }): number[];
   loadFontSummary(data: { family: string }): LoadFontSummaryResult;

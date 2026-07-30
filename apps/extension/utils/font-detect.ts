@@ -11,11 +11,11 @@
  * file itself) is to render text with each candidate font on a <canvas>
  * and compare pixels against known-different controls: if
  * `"CandidateFont, serif"` and `"CandidateFont, sans-serif"` render
- * identically, `CandidateFont` doesn't exist and the browser fell back to
- * generic serif/sans-serif — so we skip it. The first candidate that
- * renders *differently* between those two controls is the one actually in
- * use. This technique is ported from WhatFont's `TestCanvas`/`TypeInfo`
- * (jQuery, canvas pixel-diffing) — same algorithm, no jQuery.
+ * differently, `CandidateFont` doesn't exist and each control fell back to
+ * a different generic — so we skip it. A candidate whose two controls
+ * render *identically* exists; the first such candidate that also matches
+ * the full original stack's render is the one actually in use. Technique
+ * adapted from WhatFont's canvas pixel-diffing (no jQuery).
  */
 
 const SAMPLE_TEXT = "abcdefghijklmnopqrstuvwxyz";
@@ -95,6 +95,8 @@ function findRenderedFont(
   style: string,
   weight: string
 ): string {
+  const actual = renderToCanvas(stack.join(", "), style, weight);
+
   for (const candidate of stack) {
     const withSerif = renderToCanvas(`${candidate}, serif`, style, weight);
     const withSansSerif = renderToCanvas(
@@ -103,16 +105,17 @@ function findRenderedFont(
       weight
     );
 
-    // If the candidate doesn't exist, both controls fall back to the same
-    // generic family and render identically — skip it.
-    if (pixelsEqual(withSerif, withSansSerif)) {
+    // If the candidate doesn't exist, each control falls back to a
+    // different generic family (serif vs sans-serif) and the two renders
+    // differ — skip it. If it exists, both render the candidate itself and
+    // are identical.
+    if (!pixelsEqual(withSerif, withSansSerif)) {
       continue;
     }
 
     // The candidate exists; confirm it's the one actually used by the full
     // original stack, not just present-but-overridden by an earlier entry.
-    const actual = renderToCanvas(stack.join(", "), style, weight);
-    if (pixelsEqual(actual, withSerif) || pixelsEqual(actual, withSansSerif)) {
+    if (pixelsEqual(actual, withSerif)) {
       return candidate;
     }
   }

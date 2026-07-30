@@ -16,6 +16,9 @@ export default defineConfig({
       "tabs",
       ...(browser === "chrome" ? ["sidePanel"] : []),
     ],
+    // Lets the background fetch cross-origin stylesheets/font files that the
+    // content script can't read due to CORS (e.g. Google Fonts CSS).
+    host_permissions: ["<all_urls>"],
     // Chrome/Edge only for now — Firefox uses sidebar_action, which needs
     // its own entrypoint and manifest shape; add when the extension
     // supports Firefox.

@@ -1,4 +1,5 @@
 import { createRoot, type Root } from "react-dom/client";
+import { setupAppBridge } from "@/utils/app-bridge";
 import { loadFontSummary } from "@/utils/load-font-summary";
 import { onMessage, sendMessage } from "@/utils/messaging";
 import { scanPageFonts } from "@/utils/scan-page-fonts";
@@ -30,6 +31,9 @@ export default defineContentScript({
     );
     ctx.onInvalidated(unregisterScan);
     ctx.onInvalidated(unregisterLoad);
+
+    // No-op outside the Sora Type app's own origin.
+    setupAppBridge();
 
     const ui = await createShadowRootUi(ctx, {
       alignment: "top-left",
