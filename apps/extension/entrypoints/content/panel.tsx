@@ -9,7 +9,7 @@ import type { FontDetectionResult } from "@/utils/font-detect";
 import { loadFontSummary } from "@/utils/load-font-summary";
 import { clampToViewport } from "@/utils/viewport";
 
-const SORA_TYPE_URL = "https://type.soralabs.io.vn";
+const SORA_TYPE_URL = "https://type.soralabs.studio";
 
 type FileState =
   | { status: "idle" }

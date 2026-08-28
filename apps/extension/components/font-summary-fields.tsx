@@ -1,7 +1,7 @@
 import type { FontDetailField } from "@sora-type/font-engine/font-metadata";
 import { i18n } from "#i18n";
 
-const SORA_TYPE_URL = "https://type.soralabs.io.vn";
+const SORA_TYPE_URL = "https://type.soralabs.studio";
 
 export function FontSummaryFields({
   fields,

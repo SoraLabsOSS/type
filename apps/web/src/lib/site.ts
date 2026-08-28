@@ -4,7 +4,7 @@ export const SITE_DESCRIPTION =
   "A browser-based font inspector — drag and drop OpenType or TrueType files to explore what's inside.";
 
 /** Production site origin — used for sitemap, robots, and metadata. */
-export const SITE_URL = "https://type.soralabs.io.vn" as const;
+export const SITE_URL = "https://type.soralabs.studio" as const;
 
 export const GITHUB_REPO_URL = "https://github.com/SoraLabsOSS/sora-type";
 export const PORTFOLIO_URL = "https://nguyentruonggiang.id.vn";

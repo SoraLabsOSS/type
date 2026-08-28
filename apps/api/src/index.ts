@@ -4,7 +4,7 @@ import { cleanupExpiredSessions } from "./lib/cleanup-expired-sessions";
 import { sessionsRouter } from "./routes/sessions";
 
 const ALLOWED_ORIGINS = new Set([
-  "https://type.soralabs.io.vn",
+  "https://type.soralabs.studio",
   "http://localhost:3000",
 ]);
 

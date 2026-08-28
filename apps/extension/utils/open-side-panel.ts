@@ -1,6 +1,6 @@
 import { sidePanelInitialTab } from "@/utils/session-storage";
 
-const SORA_TYPE_URL = "https://type.soralabs.io.vn";
+const SORA_TYPE_URL = "https://type.soralabs.studio";
 
 /** Side panel is Chrome/Edge-only for now (see `wxt.config.ts` — Firefox
  * needs its own `sidebar_action` entrypoint). `browser.sidePanel` is

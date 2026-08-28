@@ -2,7 +2,7 @@
   "name": "extension",
   "description": "Sora Type browser extension — identify and inspect fonts on any web page.",
   "private": true,
-  "version": "1.0.2",
+  "version": "1.0.3",
   "type": "module",
   "scripts": {
     "dev": "wxt",

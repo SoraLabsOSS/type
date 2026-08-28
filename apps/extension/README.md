@@ -2,7 +2,7 @@
 
 Identify and inspect the fonts used on any web page, without leaving the tab.
 
-Companion to the [Sora Type](https://type.soralabs.io.vn) web app — shares the same font-parsing/language-detection engine (`@sora-type/font-engine`) and copy (`@sora-type/i18n-content`), so results match exactly.
+Companion to the [Sora Type](https://type.soralabs.studio) web app — shares the same font-parsing/language-detection engine (`@sora-type/font-engine`) and copy (`@sora-type/i18n-content`), so results match exactly.
 
 ## Status
 

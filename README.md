@@ -2,7 +2,7 @@
 
 A font inspector that runs entirely in your browser. Drop in an OTF, TTF, WOFF, or WOFF2 file and see its metadata, glyph coverage, language support, and OpenType layout features — or load two fonts side by side to compare them. Everything runs client-side in WebAssembly (fontkit + harfbuzzjs); your font files never leave your device.
 
-**Live:** [type.soralabs.io.vn](https://type.soralabs.io.vn) · **Extension:** on-page font picker, on the [Microsoft Edge Add-ons store](https://microsoftedge.microsoft.com/addons/detail/ldcjechdgfjlkkcocjncfonnbefllobl) — see [`apps/extension`](apps/extension)
+**Live:** [type.soralabs.studio](https://type.soralabs.studio) · **Extension:** on-page font picker, on the [Microsoft Edge Add-ons store](https://microsoftedge.microsoft.com/addons/detail/ldcjechdgfjlkkcocjncfonnbefllobl) — see [`apps/extension`](apps/extension)
 
 ## Features
 
