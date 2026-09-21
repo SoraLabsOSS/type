@@ -4,18 +4,18 @@
   "dependencies": {
     "@sora-type/rate-limit": "workspace:*",
     "drizzle-orm": "^0.45.2",
-    "hono": "4.12.34",
+    "hono": "4.13.5",
     "nanoid": "^6.0.0"
   },
   "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "0.11.1",
+    "@cloudflare/vitest-pool-workers": "0.13.0",
     "@types/node": "24.10.1",
-    "@vitest/runner": "3.2.4",
-    "@vitest/snapshot": "3.2.4",
+    "@vitest/runner": "4.1.11",
+    "@vitest/snapshot": "4.1.11",
     "dotenv": "^17.4.2",
     "drizzle-kit": "^0.31.10",
     "typescript": "5.9.3",
-    "vitest": "3.2.6",
+    "vitest": "4.1.11",
     "wrangler": "4.88.0"
   },
   "private": true,
